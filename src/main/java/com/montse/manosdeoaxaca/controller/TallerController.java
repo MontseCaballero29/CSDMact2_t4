@@ -1,11 +1,14 @@
 package com.montse.manosdeoaxaca.controller;
 
+import com.montse.manosdeoaxaca.dto.TallerDTO;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestClient;
@@ -19,8 +22,7 @@ public class TallerController {
 
     private final RestClient restClient = RestClient.create();
 
-    /*Inciso b:*/
-     
+    /*Devuelve todos los talleres obtenidos desde la API externa. */
     @GetMapping
     public List<Map<String, Object>> obtenerTalleres() {
 
@@ -28,18 +30,23 @@ public class TallerController {
                 .get()
                 .uri(API_URL)
                 .retrieve()
-                .body(new ParameterizedTypeReference<List<Map<String, Object>>>() {
-                });
+                .body(
+                    new ParameterizedTypeReference<
+                            List<Map<String, Object>>>() {
+                    }
+                );
 
-        return talleres == null ? List.of() : talleres;
+        return talleres == null
+                ? List.of()
+                : talleres;
     }
 
-    /*Inciso c:**/
-   
+    /*Devuelve el nombre y la ubicación del primer taller disponible.*/
     @GetMapping("/ubicacion")
     public Map<String, Object> obtenerUbicacionTaller() {
 
-        List<Map<String, Object>> talleres = obtenerTalleres();
+        List<Map<String, Object>> talleres =
+                obtenerTalleres();
 
         if (talleres.isEmpty()) {
             return Map.of(
@@ -48,18 +55,32 @@ public class TallerController {
             );
         }
 
-        Map<String, Object> primerTaller = talleres.get(0);
+        Map<String, Object> primerTaller =
+                talleres.get(0);
 
-        Map<String, Object> respuesta = new LinkedHashMap<>();
+        Map<String, Object> respuesta =
+                new LinkedHashMap<>();
+
         respuesta.put(
                 "nombreTaller",
                 primerTaller.get("nombreTaller")
         );
+
         respuesta.put(
                 "ubicacion",
                 primerTaller.get("ubicacion")
         );
 
         return respuesta;
+    }
+
+    /*
+     * Endpoint rest Recibe un objeto TallerDTO en formato JSON por @RequestBody y devuelve el mismo objeto
+     */
+    @PostMapping("/crear")
+    public TallerDTO crearTaller(
+            @RequestBody TallerDTO taller) {
+
+        return taller;
     }
 }
