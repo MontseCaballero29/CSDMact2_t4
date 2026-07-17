@@ -8,14 +8,14 @@
 
 <br>
 
-**Tecnológico Nacional de México**
+**Tecnológico Nacional de México**  
 **Instituto Tecnológico de Oaxaca**
 
 <br>
 
-**Carrera:** Ingeniería en Sistemas Computacionales
-**Materia:** Programación Web
-**Docente:** Adelina Martínez Nieto
+**Carrera:** Ingeniería en Sistemas Computacionales  
+**Materia:** Programación Web  
+**Docente:** Adelina Martínez Nieto  
 **Estudiante:** Dalia Montserrat Caballero Silva
 
 <br>
@@ -28,45 +28,51 @@
 
 ## Descripción del proyecto
 
-**Manos de Oaxaca** es una aplicación web desarrollada con Java, Spring Boot y Thymeleaf que implementa el patrón de arquitectura Modelo-Vista-Controlador, también conocido como MVC, la aplicación permite consultar una lista de talleres artesanales de Oaxaca, filtrar los talleres por especialidad, visualizar el detalle de un taller mediante su identificador y registrar nuevos talleres utilizando un formulario HTML.
+**Manos de Oaxaca** es una aplicación web desarrollada con Java, Spring Boot y Thymeleaf que implementa el patrón de arquitectura **Modelo-Vista-Controlador**, también conocido como MVC.
 
-También incluye un endpoint REST de tipo POST que recibe información en formato JSON mediante una clase DTO y que puede probarse desde Postman o Bruno.
+La aplicación permite consultar una lista de talleres artesanales de Oaxaca, filtrar los talleres por especialidad, visualizar el detalle de un taller mediante su identificador y registrar nuevos talleres utilizando un formulario HTML.
 
+También incluye un endpoint REST de tipo POST que recibe información en formato JSON mediante una clase DTO y devuelve la información recibida. Este endpoint fue probado utilizando Postman.
 
 ---
 
+## Anotaciones implementadas
 
-Se implementaron clases DTO y las siguientes anotaciones:
+Durante el desarrollo del proyecto se utilizaron las siguientes anotaciones de Spring Boot:
 
-* `@Controller`
-* `@RestController`
-* `@RequestMapping`
-* `@GetMapping`
-* `@PostMapping`
-* `@ModelAttribute`
-* `@RequestParam`
-* `@PathVariable`
-* `@RequestBody`
-* `@Value`
+- `@Controller`
+- `@RestController`
+- `@RequestMapping`
+- `@GetMapping`
+- `@PostMapping`
+- `@ModelAttribute`
+- `@RequestParam`
+- `@PathVariable`
+- `@RequestBody`
+- `@Value`
 
 ---
 
 ## Tecnologías utilizadas
 
-* Java 25
-* Spring Boot 4.1.0
-* Spring Web MVC
-* Thymeleaf
-* Maven
-* HTML5
-* CSS3
-* Postman
-* Git
-* GitHub
-* Visual Studio Code
-* VPS con Ubuntu
+- Java 25
+- Spring Boot 4.1.0
+- Spring Web MVC
+- Thymeleaf
+- Maven
+- HTML5
+- CSS3
+- Postman
+- Git
+- GitHub
+- Visual Studio Code
+- VPS con Ubuntu
 
---
+---
+
+## Patrón MVC
+
+El proyecto implementa el patrón **Modelo-Vista-Controlador** para separar los datos, la interfaz y el procesamiento de las solicitudes.
 
 ### Modelo
 
@@ -78,11 +84,11 @@ TallerDTO.java
 
 Esta clase contiene los datos de cada taller:
 
-* ID
-* Nombre del taller
-* Nombre del artesano
-* Especialidad
-* Ubicación
+- ID
+- Nombre del taller
+- Nombre del artesano
+- Especialidad
+- Ubicación
 
 ### Vista
 
@@ -96,9 +102,9 @@ src/main/resources/templates/talleres
 
 Las vistas implementadas son:
 
-* `lista.html`
-* `formulario.html`
-* `detalle.html`
+- `lista.html`
+- `formulario.html`
+- `detalle.html`
 
 ### Controlador
 
@@ -108,21 +114,21 @@ El controlador MVC es:
 TallerMvcController.java
 ```
 
-Este controlador recibe las solicitudes del navegador, procesa los datos y los envía a las vistas utilizando el objeto `Model`.
+Este controlador recibe las solicitudes del navegador, procesa los datos, los agrega al objeto `Model` y devuelve la vista Thymeleaf correspondiente.
 
 También existe un controlador REST:
 
 ```text
 TallerController.java
 ```
-Este controlador devuelve información en formato JSON y contiene el endpoint POST probado desde Postman.
 
+Este controlador devuelve información en formato JSON y contiene el endpoint POST probado desde Postman.
 
 ---
 
 ## Clase DTO
 
-La clase `TallerDTO` se utiliza para transportar la información de un taller entre los formularios, los controladores y los endpoints REST.
+La clase `TallerDTO` se utiliza para transportar la información de un taller entre los formularios, los controladores, las vistas y los endpoints REST.
 
 Sus atributos son:
 
@@ -136,17 +142,17 @@ private String ubicacion;
 
 El DTO se utiliza en:
 
-* La lista de talleres.
-* El formulario Thymeleaf.
-* El detalle de un taller.
-* El endpoint POST REST.
-* La petición JSON enviada desde Postman.
+- La lista de talleres.
+- El formulario Thymeleaf.
+- El detalle de un taller.
+- El endpoint POST REST.
+- La petición JSON enviada desde Postman.
 
 ---
 
 ## Funcionalidades implementadas
 
-### Lista de talleres
+### Lista de talleres con `th:each`
 
 La aplicación muestra una lista de talleres utilizando el objeto `Model` y la directiva `th:each` de Thymeleaf.
 
@@ -160,13 +166,13 @@ URL local:
 http://localhost:8084/mvc/talleres
 ```
 
-![Lista de talleres](capturas/lista-talleres.png)
+![Lista de talleres](img/lista-talleres.png)
 
 ---
 
 ### Formulario con `@ModelAttribute`
 
-La aplicación contiene un formulario para registrar talleres.
+La aplicación contiene un formulario para registrar nuevos talleres.
 
 El formulario se abre mediante:
 
@@ -180,19 +186,19 @@ URL local:
 http://localhost:8084/mvc/talleres/nuevo
 ```
 
-Cuando el formulario se envía, sus campos se reciben mediante:
+Cuando se envía el formulario, sus campos se reciben mediante:
 
 ```java
 @ModelAttribute("taller") TallerDTO taller
 ```
 
-Endpoint que procesa el formulario:
+El endpoint que procesa el formulario es:
 
 ```http
 POST /mvc/talleres/guardar
 ```
 
-![Formulario de talleres](capturas/formulario.png)
+![Formulario de talleres](img/formulario.png)
 
 ---
 
@@ -218,13 +224,13 @@ El controlador recibe el parámetro mediante:
 @RequestParam(required = false) String especialidad
 ```
 
-![Filtro con RequestParam](capturas/request-param.png)
+![Filtro con RequestParam](img/request-param.png)
 
 ---
 
 ### Detalle con `@PathVariable`
 
-La aplicación permite consultar un taller específico utilizando su ID.
+La aplicación permite consultar un taller específico utilizando su identificador.
 
 Ejemplo:
 
@@ -238,13 +244,13 @@ URL local:
 http://localhost:8084/mvc/talleres/1
 ```
 
-El ID se recibe mediante:
+El identificador se recibe mediante:
 
 ```java
 @PathVariable Long id
 ```
 
-![Detalle con PathVariable](capturas/path-variable.png)
+![Detalle con PathVariable](img/path-variable.png)
 
 ---
 
@@ -263,11 +269,11 @@ La propiedad es leída desde el controlador mediante:
 private String nombreProyecto;
 ```
 
-Posteriormente, el nombre del proyecto es enviado a las vistas mediante el objeto `Model`.
+Posteriormente, el nombre del proyecto se envía a las vistas utilizando el objeto `Model`.
 
 ---
 
-### Endpoint POST REST
+### Endpoint POST REST con `@RequestBody`
 
 Se creó un endpoint REST que recibe un objeto `TallerDTO` en formato JSON.
 
@@ -299,7 +305,13 @@ JSON utilizado en Postman:
 }
 ```
 
-![Petición POST en Postman](capturas/post-postman.png)
+La petición fue procesada correctamente y devolvió un estado:
+
+```text
+200 OK
+```
+
+![Petición POST en Postman](img/post-postman.png)
 
 ---
 
@@ -353,6 +365,48 @@ https://6a545ff38547b9f7111c26d6.mockapi.io/talleres
 
 ---
 
+## Estructura principal del proyecto
+
+```text
+CSDMact2_t4/
+├── img/
+│   ├── lista-talleres.png
+│   ├── formulario.png
+│   ├── request-param.png
+│   ├── path-variable.png
+│   └── post-postman.png
+│
+├── src/
+│   └── main/
+│       ├── java/
+│       │   └── com/montse/manosdeoaxaca/
+│       │       ├── controller/
+│       │       │   ├── ProyectoController.java
+│       │       │   ├── TallerController.java
+│       │       │   └── TallerMvcController.java
+│       │       ├── dto/
+│       │       │   └── TallerDTO.java
+│       │       └── ManosdeoaxacaApplication.java
+│       │
+│       └── resources/
+│           ├── static/
+│           │   └── css/
+│           │       └── estilos.css
+│           ├── templates/
+│           │   └── talleres/
+│           │       ├── lista.html
+│           │       ├── formulario.html
+│           │       └── detalle.html
+│           └── application.properties
+│
+├── pom.xml
+├── mvnw
+├── mvnw.cmd
+└── README.md
+```
+
+---
+
 ## Ejecución local
 
 Para ejecutar el proyecto en Windows:
@@ -393,7 +447,7 @@ target/CSDMact2_t4-0.0.1-SNAPSHOT.jar
 
 ## Despliegue en el VPS
 
-La Actividad 2 se despliega en una carpeta diferente a la Actividad 1.
+La Actividad 2 se despliega en una carpeta diferente a la utilizada para la Actividad 1.
 
 La Actividad 2 utiliza el puerto:
 
@@ -407,7 +461,7 @@ Vista principal desplegada:
 http://54.83.75.25:8084/mvc/talleres
 ```
 
-![Actividad 2 en el VPS](capturas/actividad2-vps.png)
+> La captura del VPS se agregará después de realizar el despliegue.
 
 ---
 
@@ -421,9 +475,7 @@ Enlace:
 http://54.83.75.25:8082/proyecto
 ```
 
-![Actividad 1 en el VPS](capturas/actividad1-vps.png)
-
-De esta manera, ambas actividades pueden ejecutarse al mismo tiempo sin sobrescribirse.
+De esta manera, ambas actividades pueden ejecutarse simultáneamente sin sobrescribirse.
 
 ---
 
@@ -443,3 +495,8 @@ https://github.com/MontseCaballero29/CSDMact1_t4
 
 ---
 
+## Autora
+
+**Dalia Montserrat Caballero Silva**  
+Ingeniería en Sistemas Computacionales  
+Instituto Tecnológico de Oaxaca
