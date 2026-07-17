@@ -9,8 +9,8 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.montse</groupId>
-	<artifactId>manosdeoaxaca</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<artifactId>CSDMact2_t4</artifactId>
+    <name>CSDMact2_t4</name>
 	<name>manosdeoaxaca</name>
 	<description/>
 	<url/>
