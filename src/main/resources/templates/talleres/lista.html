@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="es"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Lista de talleres</title>
+
+    <link rel="stylesheet"
+          th:href="@{/css/estilos.css}">
+</head>
+
+<body>
+
+<main class="contenedor">
+
+    <header class="encabezado">
+
+        <div>
+            <!-- El nombre viene de @Value y después se envía mediante Model -->
+            <h1 th:text="${nombreProyecto}">
+                Manos de Oaxaca - Actividad 2
+            </h1>
+
+            <p>
+                Consulta los talleres artesanales registrados.
+            </p>
+        </div>
+
+        <a class="boton"
+           th:href="@{/mvc/talleres/nuevo}">
+            Registrar taller
+        </a>
+
+    </header>
+
+    <!--
+        El valor especialidad se envía como parámetro en la URL.
+
+        Ejemplo:
+        /mvc/talleres?especialidad=Textiles
+    -->
+    <form class="filtro"
+          th:action="@{/mvc/talleres}"
+          method="get">
+
+        <input
+            type="text"
+            id="especialidad"
+            name="especialidad"
+            placeholder="Ejemplo: Textiles"
+            aria-label="Filtrar talleres por especialidad"
+            th:value="${especialidadSeleccionada}">
+
+        <button type="submit">
+            Filtrar
+        </button>
+
+        <a class="boton"
+           th:href="@{/mvc/talleres}">
+            Mostrar todos
+        </a>
+
+    </form>
+
+    <!-- Muestra la tabla solamente cuando existen resultados -->
+    <div th:if="${talleres != null and !talleres.isEmpty()}">
+
+        <table>
+
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Taller</th>
+                <th>Artesano</th>
+                <th>Especialidad</th>
+                <th>Ubicación</th>
+                <th>Acción</th>
+            </tr>
+            </thead>
+
+            <tbody>
+
+            <!-- th:each recorre la lista enviada desde el controlador -->
+            <tr th:each="taller : ${talleres}">
+
+                <td th:text="${taller.id}">
+                    1
+                </td>
+
+                <td th:text="${taller.nombreTaller}">
+                    Taller de Barro Negro
+                </td>
+
+                <td th:text="${taller.artesano}">
+                    María Hernández
+                </td>
+
+                <td th:text="${taller.especialidad}">
+                    Alfarería
+                </td>
+
+                <td th:text="${taller.ubicacion}">
+                    San Bartolo Coyotepec
+                </td>
+
+                <td>
+                    <!--
+                        El ID se agrega a la ruta.
+                        Esto será recibido con @PathVariable.
+                    -->
+                    <a class="enlace"
+                       th:href="@{/mvc/talleres/{id}(id=${taller.id})}">
+                        Ver detalle
+                    </a>
+                </td>
+
+            </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+    <!-- Se muestra cuando el filtro no encuentra resultados -->
+    <div class="sin-resultados"
+         th:if="${talleres == null or talleres.isEmpty()}">
+
+        <p>No se encontraron talleres con esa especialidad.</p>
+
+        <a class="boton"
+           th:href="@{/mvc/talleres}">
+            Regresar a todos los talleres
+        </a>
+
+    </div>
+
+</main>
+
+</body>
+</html>

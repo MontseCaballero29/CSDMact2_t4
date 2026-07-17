@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="es"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Registrar taller</title>
+
+    <link rel="stylesheet"
+          th:href="@{/css/estilos.css}">
+</head>
+
+<body>
+
+<main class="contenedor contenedor-formulario">
+
+    <header>
+
+        <h1 th:text="${nombreProyecto}">
+            Manos de Oaxaca - Actividad 2
+        </h1>
+
+        <h2>Registrar nuevo taller</h2>
+
+        <p>
+            Captura la información del taller artesanal.
+        </p>
+
+    </header>
+
+    <!-- th:object conecta el formulario con el objeto TallerDTO enviado por el controlador, por @ModelAttribute.-->
+    <form
+        th:action="@{/mvc/talleres/guardar}"
+        th:object="${taller}"
+        method="post">
+
+        <label for="nombreTaller">
+            Nombre del taller
+        </label>
+
+        <input
+            type="text"
+            id="nombreTaller"
+            th:field="*{nombreTaller}"
+            placeholder="Ejemplo: Taller de Barro Rojo"
+            required>
+
+        <label for="artesano">
+            Nombre del artesano
+        </label>
+
+        <input
+            type="text"
+            id="artesano"
+            th:field="*{artesano}"
+            placeholder="Ejemplo: María López"
+            required>
+
+        <label for="especialidad">
+            Especialidad
+        </label>
+
+        <input
+            type="text"
+            id="especialidad"
+            th:field="*{especialidad}"
+            placeholder="Ejemplo: Alfarería"
+            required>
+
+        <label for="ubicacion">
+            Ubicación
+        </label>
+
+        <input
+            type="text"
+            id="ubicacion"
+            th:field="*{ubicacion}"
+            placeholder="Ejemplo: Oaxaca de Juárez"
+            required>
+
+        <div class="acciones">
+
+            <button type="submit">
+                Guardar taller
+            </button>
+
+            <a class="boton"
+               th:href="@{/mvc/talleres}">
+                Cancelar
+            </a>
+
+        </div>
+
+    </form>
+
+</main>
+
+</body>
+</html>

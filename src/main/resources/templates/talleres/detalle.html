@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Detalle del taller</title>
+
+    <link rel="stylesheet"
+          th:href="@{/css/estilos.css}">
+</head>
+
+<body>
+
+<main class="contenedor contenedor-detalle">
+
+    <header>
+
+        <h1 th:text="${nombreProyecto}">
+            Manos de Oaxaca - Actividad 2
+        </h1>
+
+        <p>
+            Información detallada del taller artesanal.
+        </p>
+
+    </header>
+
+    <!-- Se muestra cuando sí existe un taller con ese ID -->
+    <section th:if="${taller != null}">
+
+        <h2 th:text="${taller.nombreTaller}">
+            Nombre del taller
+        </h2>
+
+        <div class="dato">
+            <strong>ID:</strong>
+
+            <span th:text="${taller.id}">
+                1
+            </span>
+        </div>
+
+        <div class="dato">
+            <strong>Nombre del taller:</strong>
+
+            <span th:text="${taller.nombreTaller}">
+                Taller de Barro Negro
+            </span>
+        </div>
+
+        <div class="dato">
+            <strong>Artesano:</strong>
+
+            <span th:text="${taller.artesano}">
+                María Hernández
+            </span>
+        </div>
+
+        <div class="dato">
+            <strong>Especialidad:</strong>
+
+            <span th:text="${taller.especialidad}">
+                Alfarería
+            </span>
+        </div>
+
+        <div class="dato">
+            <strong>Ubicación:</strong>
+
+            <span th:text="${taller.ubicacion}">
+                San Bartolo Coyotepec
+            </span>
+        </div>
+
+    </section>
+
+    <!-- Se muestra cuando no existe un taller con el ID solicitado -->
+    <section class="sin-resultados"
+             th:if="${taller == null}">
+
+        <h2>Taller no encontrado</h2>
+
+        <p>
+            No existe un taller registrado con el ID solicitado.
+        </p>
+
+    </section>
+
+    <div class="acciones">
+
+        <a class="boton"
+           th:href="@{/mvc/talleres}">
+            Regresar a la lista
+        </a>
+
+    </div>
+
+</main>
+
+</body>
+</html>
