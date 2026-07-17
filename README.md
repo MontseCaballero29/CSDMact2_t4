@@ -461,10 +461,11 @@ Vista principal desplegada:
 http://54.83.75.25:8084/mvc/talleres
 ```
 
+<div align="center">
+
 <img src="evidencias/vps-funcionando.png" alt="Proyecto Manos de Oaxaca ejecutándose en el VPS" width="900">
 
-
-
+</div>
 ---
 
 ## Actividad 1
